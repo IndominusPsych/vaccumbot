@@ -34,9 +34,10 @@
 
   <!-- ROBOT STATE PUBLISHER FOR TF OF EACH JOINT: PUBLISHES ALL THE CURRENT STATES OF THE JOINT FOR RVIZ VISUALIZATION -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
 
-  <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0.0 0 0 0 0 1 map odom 50" />
-  <!-- <node name="map_tf_base_link" pkg="tf" type="static_transform_publisher" args="0 0.0 0 0 0 0 1 map base_link 50" /> -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>
 
 </launch>

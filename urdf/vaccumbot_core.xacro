@@ -505,7 +505,8 @@
     type="fixed">
     <origin
       xyz="0.11856 0 0.12179"
-      rpy="0 -0.17453 0" />
+      rpy="0 0 0" />   
+    <!-- use this value for pitch -0.17453 -->
     <parent
       link="base_link" />
     <child

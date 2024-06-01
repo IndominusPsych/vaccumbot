@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- CAMERA MATERIAL -->
+
+  <gazebo reference="fcam_link">
+      <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- CAMERA OPTICAL LINK--> 
+
+  <joint name="cam_opt" type="fixed">
+    <parent link="fcam_link"/>
+    <child link="cam_link_opt"/>
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+  </joint>
+
+  <link name="cam_link_opt"></link>
+
+  <!-- CAMERA DEFINITION -->  
+  
+  <gazebo reference="fcam_link">
+    <sensor type="camera" name="camera">
+    <pose> 0 0 0 0 0 0 </pose>
+    <visualize>true</visualize>
+    <update_rate>10.0</update_rate>
+    <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+        <width>800</width>
+        <height>800</height>
+        <format>R8G8B8</format>
+        </image>
+        <clip>
+        <near>0.05</near>
+        <far>8.0</far>
+        </clip>
+    </camera>
+    <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>camera</cameraName>
+        <imageTopicName>/camera/image_raw</imageTopicName>
+        <cameraInfoTopicName>/camera/camera_info</cameraInfoTopicName>
+        <frameName>cam_link_opt</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+    </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+
+<robot name="vaccumbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find vaccumbot)/urdf/vaccumbot_core.xacro" />
+  <xacro:include filename="$(find vaccumbot)/urdf/vaccumbot_gazebo_control.xacro" />
+  <!-- <xacro:include filename="$(find vaccumbot)/urdf/vaccumbot_camera.xacro" /> -->
+  <!-- <xacro:include filename="$(find vaccumbot)/urdf/vaccumbot_depth_camera.xacro" /> -->
+  <xacro:include filename="$(find vaccumbot)/urdf/vaccumbot_lidar.xacro" />
+
+</robot>

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- DIFFERENTIAL CONTROL -->
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>10</updateRate>
+
+      <!-- WHEEL INFORMATION -->
+
+      <leftJoint>lw</leftJoint>
+      <rightJoint>rw</rightJoint>
+      <wheelSeparation>0.25</wheelSeparation>
+      <wheelDiameter>0.06</wheelDiameter>
+      <torque>10</torque>
+      <wheelAcceleration>0</wheelAcceleration>
+      <wheelTorque>5</wheelTorque>
+
+       <!-- OUTPUTS -->
+
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>false</publishWheelTF>
+      <publishOdomTF>true</publishOdomTF>
+
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <publishWheelJointState>false</publishWheelJointState>
+      <rosDebugLevel>na</rosDebugLevel>
+      <odometrySource>encoder</odometrySource>
+      <publishTf>1</publishTf>
+
+    </plugin>
+  </gazebo>
+
+  <!-- GAZEBO MATERIAL -->
+
+  <gazebo reference="chassis_link">
+      <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="lw_link">
+      <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="rw_link">
+      <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="fvc_link">
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="rvc_link">
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="sw_link">
+      <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="strasm_link">
+      <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="name_link">
+      <material>Gazebo/Green</material>
+  </gazebo>
+
+  <!-- GAZEBO SELF COLLISION -->
+
+  <gazebo reference="flwp_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="rvc_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="fvc_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="strasm_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="sw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="lw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="rw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+
+</robot>

@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
 	urdf
 	xacro
 	message_generation
+	sensor_msgs
+	gazebo_ros
+	nav_msgs
+	tf
 	)
 
 catkin_package(
@@ -19,6 +23,12 @@ catkin_package(
 	roscpp
 	rospy
 	std_msgs
+	sensor_msgs
+	gazebo_ros
+	nav_msgs
+	tf
+	urdf
+	xacro
 	)
 
 find_package(roslaunch)

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="vaccumbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <!-- DEPTH CAMERA MATERIAL -->
 
@@ -40,7 +40,7 @@
       <plugin name="laser_controller" filename="libgazebo_ros_laser.so">
           <topicName>scan</topicName>
           <!-- <output_type>sensor_msgs/LaserScan</output_type> -->
-          <frame_name>laser_link_opt</frame_name>
+          <frameName>laser_link_opt</frameName>
       </plugin>
     </sensor>
   </gazebo>

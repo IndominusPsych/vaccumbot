@@ -40,8 +40,4 @@
     <param name="use_gui" value="False"/>
   </node> -->
 
-  <!-- LAUNCH RVIZ -->
-  <node pkg="rviz" type="rviz" name="rviz"
-  args="-d $(find vaccumbot)/rviz/rviz.rviz"></node>
-
 </launch>

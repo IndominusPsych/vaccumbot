@@ -1,6 +1,7 @@
 <launch>
-  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
-    <param name="output_frame_id" value="tcam_link"/>
+  <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan_loader" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet">
+  <!-- <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan"> -->
+    <param name="output_frame_id" value="depcam_link_opt"/>
     <param name="range_min" value="0.45"/>
     <param name="range_max" value="10.0"/>
     <param name="scan_time" value="0.033"/>

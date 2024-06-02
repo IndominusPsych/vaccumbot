@@ -8,6 +8,6 @@ inflation_radius: 0.5
 cost_scaling_factor: 1.5
 
 map_type: costmap
-observation_sources: scan #point_cloud_sensor
-laser_scan_sensor: {sensor_frame: laser_link_opt, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+observation_sources: /camera1/depth/points #point_cloud_sensor
+# laser_scan_sensor: {sensor_frame: laser_link_opt, data_type: LaserScan, topic: scan, marking: true, clearing: true}
 point_cloud_sensor: {sensor_frame: depcam_link_opt, data_type: PointCloud2, topic: /camera1/depth/points, marking: true, clearing: true}

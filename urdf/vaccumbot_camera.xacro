@@ -22,7 +22,7 @@
   <gazebo reference="fcam_link">
     <sensor type="camera" name="camera">
     <pose> 0 0 0 0 0 0 </pose>
-    <visualize>true</visualize>
+    <visualize>false</visualize>
     <update_rate>10.0</update_rate>
     <camera>
         <horizontal_fov>1.089</horizontal_fov>

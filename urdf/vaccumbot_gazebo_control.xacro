@@ -40,7 +40,7 @@
   <!-- GAZEBO MATERIAL -->
 
   <gazebo reference="chassis_link">
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="lw_link">
       <material>Gazebo/Blue</material>

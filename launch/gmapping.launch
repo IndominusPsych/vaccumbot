@@ -1,5 +1,5 @@
 <launch>
-  <arg name="scan_topic"  default="scan" />
+  <arg name="scan_topic"  default="/camera1/depth/points" />
   <arg name="base_frame"  default="base_link"/>
   <arg name="odom_frame"  default="odom"/>
   <arg name="map_frame"  default="map"/>
@@ -14,7 +14,6 @@
 
   <!-- LAUNCH SLAM GMAPPING NODE -->
   <node pkg="gmapping" name="slam_gmapping" type="slam_gmapping" output="screen">
-    <param name="base_frame" value="base_link" />
     <param name="base_frame" value="$(arg base_frame)"/>
     <param name="odom_frame" value="$(arg odom_frame)"/>
     <param name="map_frame"  value="$(arg map_frame)"/>

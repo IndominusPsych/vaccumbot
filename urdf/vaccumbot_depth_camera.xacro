@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="vaccumbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <!-- DEPTH CAMERA MATERIAL -->
 
@@ -37,8 +37,9 @@
           </clip>
       </camera>
       <plugin name="depth_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <frameId>depcam_link_opt</frameId>
           <alwaysOn>true</alwaysOn>
-          <frame_name>depcam_link_opt</frame_name>
+          <frameName>depcam_link_opt</frameName>
           <cameraName>camera1</cameraName>
           <imageTopicName>/camera1/color/image_raw</imageTopicName>
           <cameraInfoTopicName>/camera1/color/camera_info</cameraInfoTopicName>

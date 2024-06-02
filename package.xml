@@ -28,6 +28,10 @@ for vaccumbot robot</p>
   <depend>joint_state_publisher_gui</depend>
   <depend>gazebo</depend>
   <depend>moveit_simple_controller_manager</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf</depend>
+  <depend>gazebo_ros</depend>
 
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>

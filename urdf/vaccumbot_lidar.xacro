@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="vaccumbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <!-- DEPTH CAMERA MATERIAL -->
 
@@ -9,20 +9,20 @@
 
   <!-- DEPTH CAMERA OPTICAL LINK--> 
 
-  <joint name="depcam_opt" type="fixed">
+  <joint name="laser_opt" type="fixed">
     <parent link="tcam_link"/>
-    <child link="depcam_link_opt"/>
-    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <child link="laser_link_opt"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <link name="depcam_link_opt"></link>
+  <link name="laser_link_opt"></link>
 
   <!-- DEPTH CAMERA DEFINITION -->  
   
-  <gazebo reference="tcam_link">
+  <gazebo reference="laser_link_opt">
     <sensor name="laser" type="ray">
       <pose> 0 0 0 0 0 0 </pose>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>10</update_rate>
       <ray>
           <scan>
@@ -37,12 +37,10 @@
               <max>12</max>
           </range>
       </ray>
-      <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
-          <ros>
-              <argument>~/out:=scan</argument>
-          </ros>
-          <output_type>sensor_msgs/LaserScan</output_type>
-          <frame_name>laser_frame</frame_name>
+      <plugin name="laser_controller" filename="libgazebo_ros_laser.so">
+          <topicName>scan</topicName>
+          <!-- <output_type>sensor_msgs/LaserScan</output_type> -->
+          <frameName>laser_link_opt</frameName>
       </plugin>
     </sensor>
   </gazebo>

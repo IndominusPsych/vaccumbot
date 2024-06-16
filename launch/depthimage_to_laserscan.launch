@@ -1,7 +1,4 @@
 <launch>
-  <!-- <node pkg="nodelet" type="nodelet" name="full_depthimage_to_laserscan"
-          args="standalone full_depthimage_to_laserscan/DepthImageToLaserScanNodelet"  output="screen" required="true"> -->
-  <!-- <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet"> -->
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
     <param name="output_frame_id" value="tcam_link"/>
     <param name="range_min" value="0.45"/>

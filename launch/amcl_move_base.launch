@@ -8,7 +8,7 @@
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!-- PLACE MAP FRAME AT ODOMETRY FRAME -->
-  <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0.0 0 0 0 0 1 map odom 50" />
+  <!-- <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map odom 50" /> -->
 
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
@@ -26,8 +26,8 @@
     <param name="transform_tolerance"       value="0.5"/>
     <param name="recovery_alpha_slow"       value="0.00"/>
     <param name="recovery_alpha_fast"       value="0.00"/>
-    <param name="initial_pose_x"            value="0.00"/>
-    <param name="initial_pose_y"            value="0.00"/>
+    <param name="initial_pose_x"            value="-4.00"/>
+    <param name="initial_pose_y"            value="1.00"/>
     <param name="initial_pose_a"            value="0.00"/>
     <param name="gui_publish_rate"          value="50.0"/>
 
@@ -49,7 +49,7 @@
 
   </node>
   
-  <!-- ArARGUMENTS -->
+  <!-- ARGUMENTS -->
   <arg name="cmd_vel_topic" default="/cmd_vel" />
   <arg name="odom_topic" default="odom" />
   <arg name="move_forward_only" default="false"/>

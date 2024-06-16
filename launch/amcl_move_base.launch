@@ -12,7 +12,7 @@
 
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <remap from="scan" to="scan"/>
+    <remap from="scan" to="/camera1/depth/scan"/>
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff"/>
     <param name="base_frame_id" value="base_link"/>

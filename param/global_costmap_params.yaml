@@ -8,3 +8,4 @@ global_costmap:
   resolution: 0.01
 
   static_map: true
+

@@ -1,4 +1,4 @@
-image: /home/neo/casestudy_ws/src/vaccumbot/maps/house.pgm
+image: house.pgm
 resolution: 0.010000
 origin: [-20.000000, -37.600000, 0.000000]
 negate: 0

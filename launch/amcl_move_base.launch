@@ -4,11 +4,14 @@
   <param name="robot_description" command="$(find xacro)/xacro '$(find vaccumbot)/urdf/vaccumbot.urdf.xacro'"/>
 
   <!-- LAUNCH MAP SERVER -->
-  <arg name="map_file" default="$(find vaccumbot)/maps/test_map.yaml"/>
+  <arg name="map_file" default="$(find vaccumbot)/maps/house.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
-  <!-- PLACE MAP FRAME AT ODOMETRY FRAME -->
-  <!-- <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map odom 50" /> -->
+  <!-- PLACE MAP FRAME AT BASE_LINK FRAME -->
+  <!-- <node name="map_tf_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map base_link 100" /> -->
+
+  <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map odom 100" />
+
 
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
@@ -16,8 +19,8 @@
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff"/>
     <param name="base_frame_id" value="base_link"/>
-    <param name="update_min_d" value="0.5"/>
-    <param name="update_min_a" value="1.0"/>
+    <param name="update_min_d" value="0.2"/>
+    <param name="update_min_a" value="0.2"/>
 
     <param name="min_particles"             value="500"/>
     <param name="max_particles"             value="3000"/>

@@ -33,11 +33,22 @@
   vaccumbot -J lw 0.0 -J rw 0.0 -J flwp 0.0 -J fvc 0.0 -J rvc 0.0 -J sw 0.0" />
 
   <!-- ROBOT STATE PUBLISHER FOR TF OF EACH JOINT: PUBLISHES ALL THE CURRENT STATES OF THE JOINT FOR RVIZ VISUALIZATION -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0"/>
+  </node>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0"/>
+  </node>
 
   <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="use_gui" value="False"/>
   </node> -->
 
+  <!-- <rosparam file ="$(find vaccumbot)/config/vaccumbot_controller.yaml"
+    command="load"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" 
+        respawn="false" output="screen"
+        args="fvc_controller rvc_controller"/> -->
+  
+  <include file="$(find vaccumbot)/launch/depthimage_to_laserscan.launch"/>
 </launch>

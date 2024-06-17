@@ -29,10 +29,10 @@ class ObjectTracker:
         # Detect circles using Hough Circle Transform
         circles = cv2.HoughCircles(blurred_image, cv2.HOUGH_GRADIENT, dp=1, minDist=20,
                                    param1=50, param2=30, minRadius=10, maxRadius=50)
+        print(circles)
         
         if circles is not None:
             circles = circles[0]  # Extract circles from the result
-            self.tracked_objects = []  # Clear previous tracked objects
             
             for circle in circles:
                 x, y, radius = int(circle[0]), int(circle[1]), int(circle[2])

@@ -11,7 +11,7 @@ class ObjectTracker:
         self.bridge = CvBridge()
         self.image_sub = rospy.Subscriber("/camera/image_raw", Image, self.image_callback)
         self.image_pub = rospy.Publisher("/camera/overlayed_image", Image, queue_size=10)
-        self.tracked_objects = []
+        self.tracked_objects = {}
         
     def image_callback(self, data):
         try:
@@ -36,7 +36,8 @@ class ObjectTracker:
             
             for circle in circles:
                 x, y, radius = int(circle[0]), int(circle[1]), int(circle[2])
-                self.tracked_objects.append((x, y, radius))
+                object_id = self.get_object_id(x, y)
+                self.tracked_objects[object_id] = (x, y, radius)
                 
                 # Draw green circle around the detected object
                 cv2.circle(cv_image, (x, y), radius, (0, 255, 0), 2)
@@ -50,7 +51,12 @@ class ObjectTracker:
 
         cv2.imshow("Object Tracking", cv_image)
         cv2.waitKey(1)
-
+    
+    def get_object_id(self, x, y):
+        # Simple function to generate unique object ID based on coordinates
+        return f"{x}_{y}"
+    
+    
 def main():
     rospy.init_node('object_tracker', anonymous=True)
     ObjectTracker()

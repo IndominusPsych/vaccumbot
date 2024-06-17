@@ -44,4 +44,11 @@
     <param name="use_gui" value="False"/>
   </node> -->
 
+  <rosparam file ="$(find vaccumbot)/config/vaccumbot_controller.yaml"
+    command="load"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" 
+        respawn="false" output="screen"
+        args="joint_state_controller fvc_controller rvc_controller"/>
+  
+  <include file="$(find vaccumbot)/launch/depthimage_to_laserscan.launch"/>
 </launch>

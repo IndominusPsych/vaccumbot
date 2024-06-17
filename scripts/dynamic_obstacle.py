@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # Define parameters for each obstacle: name, initial_x, target_x, step_size
     obstacles = [
         ObstacleController('obstacle1', initial_x=0.0, target_x=4.0, step_size=0.1),
-        # ObstacleController('obstacle2', initial_x=0.0, target_x=3.0, step_size=0.2),
+        ObstacleController('obstacle2', initial_x=0.0, target_x=3.0, step_size=0.2),
         # Add more obstacles as needed
     ]
 

@@ -8,7 +8,6 @@ Panels:
         - /TF1/Tree1
         - /Global Map1/Costmap1
         - /Global Map1/Planner1
-        - /Local Map1/Polygon1/Status1
         - /Camera1
       Splitter Ratio: 0.5
     Tree Height: 413
@@ -28,7 +27,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: Camera
+    SyncSource: Image
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -414,7 +413,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 78.68173217773438
+      Scale: 96.99156951904297
       Target Frame: <Fixed Frame>
       X: 0.18342643976211548
       Y: -0.7670559883117676

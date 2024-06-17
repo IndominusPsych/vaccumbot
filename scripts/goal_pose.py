@@ -1,60 +1,39 @@
 #!/usr/bin/env python3
 
 import rospy
-import actionlib
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import PoseStamped
 
-# Callbacks definition
+def send_goal(x, y, yaw):
+    goal = PoseStamped()
+    goal.header.frame_id = "map"
+    goal.header.stamp = rospy.Time.now()
 
-def active_cb():
-    rospy.loginfo("Goal pose being processed")
+    goal.pose.position.x = x
+    goal.pose.position.y = y
+    goal.pose.position.z = 0
 
-def feedback_cb(feedback):
-    rospy.loginfo("Current location: "+str(feedback))
+    goal.pose.orientation.z = yaw
 
-def done_cb(status, result):
-    if status == 3:
-        rospy.loginfo("Goal reached")
-    if status == 2 or status == 8:
-        rospy.loginfo("Goal cancelled")
-    if status == 4:
-        rospy.loginfo("Goal aborted")
-    
-def parking_task():
-    goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.orientation.z = 0.0
-    navclient.send_goal(goal, done_cb, active_cb, feedback_cb)
-    finished = navclient.wait_for_result()
-    if finished:
-        rospy.loginfo ("Parking completed")
-    return
-        
-rospy.init_node('goal_pose')
+    goal_pub.publish(goal)
 
-navclient = actionlib.SimpleActionClient('move_base',MoveBaseAction)
-navclient.wait_for_server()
+if __name__ == '__main__':
+    try:
+        rospy.init_node('waypoint_nav')
 
-# Example of navigation goal
-goal = MoveBaseGoal()
-goal.target_pose.header.frame_id = "map"
-goal.target_pose.header.stamp = rospy.Time.now()
+        goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10)
 
-goal.target_pose.pose.position.x = 0.0
-goal.target_pose.pose.position.y = 16.0
-goal.target_pose.pose.position.z = 0.0
-goal.target_pose.pose.orientation.x = 0.0
-goal.target_pose.pose.orientation.y = 0.0
-goal.target_pose.pose.orientation.z = 0.0
-goal.target_pose.pose.orientation.w = 1.0
+        rospy.sleep(2)  # Wait for publisher to initialize
 
-navclient.send_goal(goal, done_cb, active_cb, feedback_cb)
-finished = navclient.wait_for_result()
+        # Define your waypoints here
+        waypoints = [
+            (1.0, 1.0, 0.0),
+            (2.0, 2.0, 0.0),
+            (-1.0, -1.0, 0.0)
+        ]
 
-if not finished:
-    rospy.logerr("Action server not available!")
-else:
-    rospy.loginfo ( navclient.get_result())
-    parking_task()
-    
+        for waypoint in waypoints:
+            send_goal(waypoint[0], waypoint[1], waypoint[2])
+            rospy.sleep(10)  # Wait for some time before sending the next goal
 
+    except rospy.ROSInterruptException:
+        pass

@@ -18,6 +18,9 @@
   <!-- <node name="map_tf_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map base_link 100" /> -->
   <!-- <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" /> -->
 
+   <!-- INITIAL POSE FOR LOCALISATION -->
+  <node name="initialise_pos" pkg="vaccumbot" type="init_pose.py"/>
+
   <!-- LAUNCH RVIZ FOR VISUALIZATION-->
   <node pkg="rviz" type="rviz" name="rviz" required="true"
     args="-d $(find vaccumbot)/rviz/navigation.rviz"/>

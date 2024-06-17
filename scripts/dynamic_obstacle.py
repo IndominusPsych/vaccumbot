@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
 import rospy
+import threading
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
 
 class ObstacleController:
-    def __init__(self, name, initial_x, target_x, step_size):
+    def __init__(self, name, axis, initial_x, target_x, step_size):
         self.name = name
         self.initial_x = initial_x
+        self.axis = axis
         self.target_x = target_x
         self.step_size = step_size
         self.direction = 1  # 1 for forward, -1 for backward
@@ -20,11 +22,17 @@ class ObstacleController:
 
         while not rospy.is_shutdown():
             # Move the obstacle
-            self.state_msg.pose.position.x += self.direction * self.step_size
-
-            # If the obstacle reaches the target distance, change direction
-            if abs(self.state_msg.pose.position.x - self.initial_x) >= self.target_x:
-                self.direction *= -1
+            if self.axis == "x":
+                self.state_msg.pose.position.x += self.direction * self.step_size
+                # If the obstacle reaches the target distance, change direction
+                if abs(self.state_msg.pose.position.x - self.initial_x) >= self.target_x:
+                    self.direction *= -1
+                    
+            if self.axis == "y":
+                self.state_msg.pose.position.y += self.direction * self.step_size   
+                if abs(self.state_msg.pose.position.y - self.initial_x) >= self.target_x:
+                    self.direction *= -1
+            
 
             try:
                 set_state(self.state_msg)
@@ -43,12 +51,19 @@ if __name__ == '__main__':
 
     # Define parameters for each obstacle: name, initial_x, target_x, step_size
     obstacles = [
-        ObstacleController('obstacle1', initial_x=0.0, target_x=4.0, step_size=0.1),
-        ObstacleController('obstacle2', initial_x=0.0, target_x=3.0, step_size=0.2),
+        ObstacleController('obstacle1', "x", initial_x=0.0, target_x=4.0, step_size=0.1),
+        ObstacleController('obstacle2', "y", initial_x=0.0, target_x=3.0, step_size=0.2),
         # Add more obstacles as needed
     ]
 
-    # Start the movement for each obstacle
+    # Start the movement for each obstacle in a separate thread
+    threads = []
     for obstacle in obstacles:
         rospy.loginfo("Starting movement for obstacle: %s" % obstacle.name)
-        obstacle.move_obstacle()
+        t = threading.Thread(target=obstacle.move_obstacle)
+        t.start()
+        threads.append(t)
+
+    # Join threads to ensure the script doesn't exit until all threads are complete
+    for t in threads:
+        t.join()

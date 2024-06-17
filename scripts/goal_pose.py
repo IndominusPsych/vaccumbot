@@ -1,50 +1,35 @@
 #!/usr/bin/env python3
 
 import rospy
-from geometry_msgs.msg import PoseStamped
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import actionlib
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
-class VaccumbotNavigator:
-    def __init__(self):
-        rospy.init_node('vaccumbot_navigator', anonymous=True)
-        self.move_base_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-        rospy.loginfo("Waiting for move_base action server...")
-        self.move_base_client.wait_for_server()
-        rospy.loginfo("Connected to move_base server")
+def move_to_goal(x_goal, y_goal):
+    rospy.init_node('send_goal_node', anonymous=True)
 
-    def navigate_to_goal(self, goal_pose):
-        goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = "map"
-        goal.target_pose.header.stamp = rospy.Time.now()
-        goal.target_pose.pose = goal_pose
+    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+    client.wait_for_server()
 
-        rospy.loginfo("Sending goal...")
-        self.move_base_client.send_goal(goal)
-        self.move_base_client.wait_for_result()
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+    goal.target_pose.pose.position.x = x_goal
+    goal.target_pose.pose.position.y = y_goal
+    goal.target_pose.pose.orientation.w = 1.0
 
-        if self.move_base_client.get_state() == actionlib.GoalStatus.SUCCEEDED:
-            rospy.loginfo("Goal reached successfully!")
-            return True
-        else:
-            rospy.loginfo("Failed to reach goal")
-            return False
+    client.send_goal(goal)
+    wait = client.wait_for_result()
+
+    if not wait:
+        rospy.logerr("Action server not available!")
+        rospy.signal_shutdown("Action server not available!")
+    else:
+        return client.get_result()
 
 if __name__ == '__main__':
     try:
-        navigator = VaccumbotNavigator()
-
-        # Define the goal pose (position and orientation)
-        goals = [[1, 2, 0, 0],[2, 3, 0, 0]]
-        for goal in goals:
-            goal_pose = PoseStamped()
-            goal_pose.pose.position.x = goal[0]
-            goal_pose.pose.position.y = goal[1]
-            goal_pose.pose.orientation.z = goal[2]
-            goal_pose.pose.orientation.w = goal[3]
-            feedback = navigator.navigate_to_goal(goal_pose.pose)
-            if feedback == True:
-                continue
-        
+        result = move_to_goal(2.0, 3.0)
+        if result:
+            rospy.loginfo("Goal execution done!")
     except rospy.ROSInterruptException:
-        rospy.loginfo("Navigation interrupted")
+        rospy.loginfo("Navigation test finished.")

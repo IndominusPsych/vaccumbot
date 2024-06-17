@@ -51,7 +51,7 @@
     </model>
     
     <model name="obstacle2">
-      <pose>-4 1 0 0 0 0</pose>
+      <pose>-3 1 0 0 0 0</pose>
       <link name="link">
         <pose>0 0 0 0 0 0</pose>
         <collision name="collision">

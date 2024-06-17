@@ -27,7 +27,7 @@ class ObjectTracker:
         
         for contour in contours:
             area = cv2.contourArea(contour)
-            if area > 500:  # Filter out small contours
+            if area > 100:  # Filter out small contours based on area
                 x, y, w, h = cv2.boundingRect(contour)
                 cv2.rectangle(cv_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 rospy.loginfo(f"Object detected at x: {x}, y: {y}, width: {w}, height: {h}")

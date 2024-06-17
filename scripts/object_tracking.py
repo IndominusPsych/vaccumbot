@@ -11,6 +11,7 @@ class ObjectTracker:
         self.bridge = CvBridge()
         self.image_sub = rospy.Subscriber("/camera/image_raw", Image, self.image_callback)
         self.image_pub = rospy.Publisher("/camera/overlayed_image", Image, queue_size=10)
+        self.tracked_objects = []
         
     def image_callback(self, data):
         try:

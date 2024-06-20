@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- INIT DYNAMIC OBJECTS -->
+  <node name="dynamic_object_init" pkg="vaccumbot" type="dynamic_obstacle.py"/>
+
+  <!-- INIT OBJECT TRACKER -->
+  <node name="object_tracker_init" pkg="vaccumbot" type="object_tracking.py"/>
+
+</launch>

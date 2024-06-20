@@ -13,8 +13,8 @@ class ObjectTracker:
         self.image_pub = rospy.Publisher("/camera/overlayed_image", Image, queue_size=10)
         
         # Define a simple object color range (in HSV)
-        self.lower_color = (30, 150, 50)   # Adjust this range based on your object
-        self.upper_color = (50, 255, 180)  # Adjust this range based on your object
+        self.lower_color = (0, 0, 0)   # Adjust this range based on your object
+        self.upper_color = (255, 255, 255)  # Adjust this range based on your object
 
         # Initialize background subtractor
         self.bg_subtractor = cv2.createBackgroundSubtractorMOG2()

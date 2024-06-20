@@ -18,6 +18,9 @@ class ObjectTracker:
 
         # Initialize background subtractor
         self.bg_subtractor = cv2.createBackgroundSubtractorMOG2()
+
+        # Initialize variables to store previous object positions
+        self.prev_positions = []
         
     def image_callback(self, data):
         try:
@@ -37,6 +40,7 @@ class ObjectTracker:
         # Find contours in the foreground mask
         contours, _ = cv2.findContours(fg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+        detected_objects = []
         # Loop through the contours to detect the object based on color
         for contour in contours:
             if cv2.contourArea(contour) < 500:
@@ -49,9 +53,18 @@ class ObjectTracker:
             mask = cv2.inRange(hsv_roi, self.lower_color, self.upper_color)
 
             if cv2.countNonZero(mask) > 0:
-                # Draw a green rectangle around the object
-                cv_image = cv2.rectangle(cv_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        
+                detected_objects = []
+
+        # Apply additional filtering based on movement continuity
+        filtered_objects = self.filter_objects_by_movement(detected_objects)
+
+        # Draw bounding boxes around detected objects
+        for (x, y, w, h) in filtered_objects:
+            cv_image = cv2.rectangle(cv_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+        # Update previous positions
+        self.prev_positions = filtered_objects
+
         # Publish the processed image
         try:
             self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
@@ -61,6 +74,19 @@ class ObjectTracker:
         cv2.imshow("Object Tracking", cv_image)
         cv2.waitKey(1)
     
+    def filter_objects_by_movement(self, detected_objects):
+        # Filter objects based on their movement continuity
+        if not self.prev_positions:
+            return detected_objects
+
+        filtered_objects = []
+        for (x, y, w, h) in detected_objects:
+            for (px, py, pw, ph) in self.prev_positions:
+                if abs(x - px) < 50 and abs(y - py) < 50:
+                    filtered_objects.append((x, y, w, h))
+                    break
+
+        return filtered_objects
     
 def main():
     rospy.init_node('object_tracker', anonymous=True)

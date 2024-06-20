@@ -11,7 +11,13 @@ class ObjectTracker:
         self.bridge = CvBridge()
         self.image_sub = rospy.Subscriber("/camera/image_raw", Image, self.image_callback)
         self.image_pub = rospy.Publisher("/camera/overlayed_image", Image, queue_size=10)
-        self.tracked_objects = {}
+        
+        # Define a simple object color range (in HSV)
+        self.lower_color = (30, 150, 50)   # Adjust this range based on your object
+        self.upper_color = (50, 255, 180)  # Adjust this range based on your object
+
+        # Initialize background subtractor
+        self.bg_subtractor = cv2.createBackgroundSubtractorMOG2()
         
     def image_callback(self, data):
         try:
@@ -20,29 +26,32 @@ class ObjectTracker:
             rospy.logerr(e)
             return
         
-        # Convert image to grayscale
-        gray_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        
-        # Apply Gaussian blur to reduce noise
-        blurred_image = cv2.GaussianBlur(gray_image, (5, 5), 0)
-        
-        # Detect circles using Hough Circle Transform
-        circles = cv2.HoughCircles(blurred_image, cv2.HOUGH_GRADIENT, dp=1, minDist=20,
-                                   param1=50, param2=30, minRadius=10, maxRadius=50)
-        print(circles)
-        
-        if circles is not None:
-            circles = circles[0]  # Extract circles from the result
-            
-            for circle in circles:
-                x, y, radius = int(circle[0]), int(circle[1]), int(circle[2])
-                object_id = self.get_object_id(x, y)
-                self.tracked_objects[object_id] = (x, y, radius)
-                
-                # Draw green circle around the detected object
-                cv2.circle(cv_image, (x, y), radius, (0, 255, 0), 2)
-                rospy.loginfo(f"Object detected at x: {x}, y: {y}, radius: {radius}")
+        # Apply background subtractor to get the foreground mask
+        fg_mask = self.bg_subtractor.apply(cv_image)
 
+        # Apply some morphological operations to clean up the mask
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+        fg_mask = cv2.morphologyEx(fg_mask, cv2.MORPH_OPEN, kernel)
+        fg_mask = cv2.morphologyEx(fg_mask, cv2.MORPH_CLOSE, kernel)
+
+        # Find contours in the foreground mask
+        contours, _ = cv2.findContours(fg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Loop through the contours to detect the object based on color
+        for contour in contours:
+            if cv2.contourArea(contour) < 500:
+                # Ignore small contours that are likely noise
+                continue
+
+            x, y, w, h = cv2.boundingRect(contour)
+            roi = cv_image[y:y+h, x:x+w]
+            hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+            mask = cv2.inRange(hsv_roi, self.lower_color, self.upper_color)
+
+            if cv2.countNonZero(mask) > 0:
+                # Draw a green rectangle around the object
+                cv_image = cv2.rectangle(cv_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        
         # Publish the processed image
         try:
             self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
@@ -51,10 +60,6 @@ class ObjectTracker:
 
         cv2.imshow("Object Tracking", cv_image)
         cv2.waitKey(1)
-    
-    def get_object_id(self, x, y):
-        # Simple function to generate unique object ID based on coordinates
-        return f"{x}_{y}"
     
     
 def main():

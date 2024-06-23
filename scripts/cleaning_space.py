@@ -3,6 +3,7 @@
 import rospy
 from geometry_msgs.msg import PointStamped
 from std_msgs.msg import Header
+import time
 
 def publish_point(x, y, z):
     # Initialize the ROS node
@@ -30,6 +31,7 @@ def publish_point(x, y, z):
     rospy.loginfo(f"Published point: ({x}, {y}, {z}) to /clicked_point")
 
 if __name__ == '__main__':
+    time.sleep(5)
     try:
         # Example points to publish
         points_to_publish = [(-0.9168656468391418, 2.07215881347656250), 
@@ -37,12 +39,13 @@ if __name__ == '__main__':
                                 (-0.622028648853302, 3.29244065284729), 
                                 (3.7280995845794678, 3.868736743927002),
                                 (3.666754722595215, 1.9620170593261719),
-                                (-0.9550445675849915, 2.0840022563934326)]
+                                (-0.9550445675849915, 3.92022563934326),
+                                (-0.9168656468391418, 2.07215881347656250)]
         
         # Publish each point
         for point in points_to_publish:
             publish_point(point[0], point[1], 0)
-            rospy.sleep(1)  # Sleep for a second between publishes
+            rospy.sleep(0.2)  # Sleep for a second between publishes
         
     except rospy.ROSInterruptException:
         pass

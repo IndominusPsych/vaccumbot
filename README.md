@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-[Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
+[1. Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
 [2. Set Up a Catkin Workspace](#2.set-up-a-catkin-workspace)
    - [2.1 Installing Dependencies](#installing-dependencies)
    - [2.2 Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
@@ -25,7 +25,7 @@
 11. [Conclusion](#conclusion)
 12. [References](#references)
 
-## Ubuntu and ROS Installation
+## 1. Ubuntu and ROS Installation
 
 The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
 

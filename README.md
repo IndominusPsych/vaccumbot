@@ -2,30 +2,30 @@
 
 ## Table of Contents
 
-[1. Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
-[2. Set Up a Catkin Workspace](#2.set-up-a-catkin-workspace)
-   - [2.1 Installing Dependencies](#installing-dependencies)
-   - [2.2 Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
-[Understanding Vacuumbot Model](#understanding-vacuumbot-model)
-[Gazebo Simulation](#gazebo-simulation)
-   - [6.1 Launching Simulation World](#launching-simulation-world)
-   - [6.2 Launching Simulation World with Plugins for Navigation](#launching-simulation-world-with-plugins-for-navigation)
-   - [6.3 Navigation of Vacuumbot Using Teleoperation](#navigation-of-vacuumbot-using-teleoperation)
-7. [SLAM Simulation](#slam-simulation)
-   - [7.1 Saving the Map](#saving-the-map)
-8. [Navigation Simulation](#navigation-simulation)
-   - [8.1 Launch the Navigation Node](#launch-the-navigation-node)
-   - [8.2 Set Navigation Goal Using RViz](#set-navigation-goal-using-rviz)
-   - [8.3 Autonomous Navigation Using `goal_pose.py`](#autonomous-navigation-using-goal_posepy)
-9. [Object Tracking](#object-tracking)
-   - [9.1 Launching Object Tracker](#launching-object-tracker)
-   - [9.2 Launching `darknet_ros` Node for Object Tracking Using YOLO](#launching-darket_ros-node-for-object-tracking-using-yolo)
-10. [Cleaning Algorithm](#cleaning-algorithm)
-    - [10.1 Launching `path_coverage_ros` Node](#launching-path_coverage_ros-node)
-11. [Conclusion](#conclusion)
-12. [References](#references)
+1. [Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
+2. [Set Up a Catkin Workspace](#2.set-up-a-catkin-workspace)
+   - 2.1 [Installing Dependencies](#installing-dependencies)
+   - 2.2 [Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
+3. [Understanding Vacuumbot Model](#understanding-vacuumbot-model)
+4. [Gazebo Simulation](#gazebo-simulation)
+   - 4.1 [Launching Simulation World](#launching-simulation-world)
+   - 4.2 [Launching Simulation World with Plugins for Navigation](#launching-simulation-world-with-plugins-for-navigation)
+   - 4.3 [Navigation of Vacuumbot Using Teleoperation](#navigation-of-vacuumbot-using-teleoperation)
+5. [SLAM Simulation](#slam-simulation)
+   - 5.1 [Saving the Map](#saving-the-map)
+6. [Navigation Simulation](#navigation-simulation)
+   - 6.1 [Launch the Navigation Node](#launch-the-navigation-node)
+   - 6.2 [Set Navigation Goal Using RViz](#set-navigation-goal-using-rviz)
+   - 6.3 [Autonomous Navigation Using `goal_pose.py`](#autonomous-navigation-using-goal_posepy)
+7. [Object Tracking](#object-tracking)
+   - 7.1 [Launching Object Tracker](#launching-object-tracker)
+   - 7.2 [Launching `darknet_ros` Node for Object Tracking Using YOLO](#launching-darket_ros-node-for-object-tracking-using-yolo)
+8. [Cleaning Algorithm](#cleaning-algorithm)
+    - 8.1 [Launching `path_coverage_ros` Node](#launching-path_coverage_ros-node)
+9. [Conclusion](#conclusion)
+10. [References](#references)
 
-## 1. Ubuntu and ROS Installation
+1. ## Ubuntu and ROS Installation
 
 The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
 

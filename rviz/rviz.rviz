@@ -4,14 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
-        - /RobotModel1
-        - /TF1
         - /TF1/Frames1
-        - /Camera1
-        - /PointCloud21
-        - /LaserScan1
       Splitter Ratio: 0.5
     Tree Height: 363
   - Class: rviz/Selection
@@ -141,42 +134,12 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Filter (blacklist): ""
       Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        base_link:
-          Value: true
-        cam_link_opt:
-          Value: false
-        chassis_link:
-          Value: false
-        depcam_link_opt:
-          Value: false
-        fcam_link:
-          Value: false
-        flwp_link:
-          Value: false
-        fvc_link:
-          Value: false
-        lw_link:
-          Value: true
-        name_link:
-          Value: false
-        odom:
-          Value: true
-        rvc_link:
-          Value: false
-        rw_link:
-          Value: true
-        strasm_link:
-          Value: false
-        sw_link:
-          Value: false
-        tcam_link:
-          Value: false
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -184,33 +147,9 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_link:
-            chassis_link:
-              {}
-            fcam_link:
-              cam_link_opt:
-                {}
-            flwp_link:
-              {}
-            fvc_link:
-              {}
-            lw_link:
-              {}
-            name_link:
-              {}
-            rvc_link:
-              {}
-            rw_link:
-              {}
-            strasm_link:
-              sw_link:
-                {}
-            tcam_link:
-              depcam_link_opt:
-                {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
     - Class: rviz/Camera
       Enabled: true
       Image Rendering: background and overlay
@@ -241,7 +180,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -256,7 +195,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -321,17 +260,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.9295591115951538
-        Y: -0.35684359073638916
-        Z: -0.07566725462675095
+        X: 2.0515952110290527
+        Y: 0.30517295002937317
+        Z: 0.01913680136203766
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2947975695133209
+      Pitch: 0.3047974407672882
       Target Frame: <Fixed Frame>
-      Yaw: 3.665428638458252
+      Yaw: 3.650433301925659
     Saved: ~
 Window Geometry:
   Camera:

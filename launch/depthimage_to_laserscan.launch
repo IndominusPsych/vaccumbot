@@ -1,0 +1,12 @@
+<launch>
+  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+    <param name="output_frame_id" value="tcam_link"/>
+    <param name="range_min" value="0.45"/>
+    <param name="range_max" value="10.0"/>
+    <param name="scan_time" value="0.033"/>
+    <param name="scan_height" value="10"/>
+    <remap from="image" to="/camera1/depth/image_raw"/>
+    <remap from="camera_info" to="/camera1/depth/camera_info"/>
+    <remap from="scan" to="/camera1/depth/scan"/>
+  </node>
+</launch>

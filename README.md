@@ -2,14 +2,12 @@
 
 ## Table of Contents
 
-1. [Conventions Used in the Document](#conventions-used-in-the-document)
-2. [Case Study Summary](#case-study-summary)
-3. [Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
-4. [Set Up a Catkin Workspace](#set-up-a-catkin-workspace)
-   - [4.1 Installing Dependencies](#installing-dependencies)
-   - [4.2 Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
-5. [Understanding Vacuumbot Model](#understanding-vacuumbot-model)
-6. [Gazebo Simulation](#gazebo-simulation)
+[1. Ubuntu and ROS Installation](#1.ubuntu-and-ros-installation)
+[2. Set Up a Catkin Workspace](#2.set-up-a-catkin-workspace)
+   - [2.1 Installing Dependencies](#installing-dependencies)
+   - [2.2 Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
+[Understanding Vacuumbot Model](#understanding-vacuumbot-model)
+[Gazebo Simulation](#gazebo-simulation)
    - [6.1 Launching Simulation World](#launching-simulation-world)
    - [6.2 Launching Simulation World with Plugins for Navigation](#launching-simulation-world-with-plugins-for-navigation)
    - [6.3 Navigation of Vacuumbot Using Teleoperation](#navigation-of-vacuumbot-using-teleoperation)
@@ -27,19 +25,16 @@
 11. [Conclusion](#conclusion)
 12. [References](#references)
 
-## 3. Ubuntu and ROS Installation
+## 1. Ubuntu and ROS Installation
 
 The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
-
-### 3.1 Downloading and Installing Ubuntu
 
 1. Download the appropriate Ubuntu 20.04 LTS Desktop image for your PC from the [Ubuntu website](https://releases.ubuntu.com/20.04/).
 
 2. Follow the instructions to [install Ubuntu Desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop).
 
-### 3.2 Installing ROS on Remote PC
-
-1. Open the terminal with `Ctrl+Alt+T` and enter the following commands one at a time:
+3. Installing ROS on Remote PC
+   Open the terminal with `Ctrl+Alt+T` and enter the following commands one at a time:
 
     ```bash
     $ sudo apt update
@@ -49,7 +44,7 @@ The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. 
     $ bash ./install_ros_noetic.sh
     ```
 
-2. Install dependent ROS packages:
+4. Install dependent ROS packages:
 
     ```bash
     $ sudo apt-get install ros-noetic-joy ros-noetic-teleop-twist-joy \
@@ -62,7 +57,7 @@ The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. 
        ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
     ```
 
-## 4. Set Up a Catkin Workspace
+## 2. Set Up a Catkin Workspace
 
 To set up the vacuumbot in ROS, we need to create a workspace first. Follow the instructions below to do so.
 

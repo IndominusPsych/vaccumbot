@@ -5,7 +5,7 @@
 1. [Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
 2. [Set Up a Catkin Workspace](#2.set-up-a-catkin-workspace)
    - 2.1 [Installing Dependencies](#installing-dependencies)
-   - 2.2 [Importing Vacuumbot Package into Your Workspace](#importing-vacuumbot-package-into-your-workspace)
+   - 2.2 [Cloning Vacuumbot Package into Your Workspace](#cloning-vacuumbot-package-into-your-workspace)
 3. [Understanding Vacuumbot Model](#understanding-vacuumbot-model)
 4. [Gazebo Simulation](#gazebo-simulation)
    - 4.1 [Launching Simulation World](#launching-simulation-world)
@@ -31,7 +31,7 @@ The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. 
 
 1. Download the appropriate Ubuntu 20.04 LTS Desktop image for your PC from the [Ubuntu website](https://releases.ubuntu.com/20.04/).
 
-2. Follow the instructions to [install Ubuntu Desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop).
+2. Follow the instructions to [Install Ubuntu Desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop).
 
 3. Installing ROS on Remote PC
    Open the terminal with `Ctrl+Alt+T` and enter the following commands one at a time:
@@ -161,9 +161,9 @@ To ensure the vacuumbot functions correctly, the following dependencies must be 
     $ catkin_make -DCMAKE_BUILD_TYPE=Release
     ```
 
-### Importing Vacuumbot Package into Your Workspace
+### Cloning Vacuumbot Package into Your Workspace
 
-Unzip the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file and copy the `vacuumbot` folder to the `src` directory, then run:
+Now clone this repo into the `src` directory, then run:
 
 ```bash
 $ catkin_make
@@ -171,7 +171,7 @@ $ catkin_make
 
 ### Understanding Vacuumbot Model
 
-The model of the vacuumbot used in this project was created using SOLIDWORKS and later converted into URDF using the `sw2urdf` plugin. The vacuumbot consists of left and right wheels with a caster wheel in the front for integrating a differential drive. It is equipped with two sensors in the front: an RGB camera for object tracking and an RGB Depth Camera for SLAM and Navigation. The designed robot is available as CAD in the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file under the folder `cadmodel`. A model of the vacuumbot is shown in figures 4.1 and 4.2.
+The model of the vacuumbot used in this project was created using SOLIDWORKS and later converted into URDF using the `sw2urdf` plugin. The vacuumbot consists of left and right wheels with a caster wheel in the front for integrating a differential drive. It is equipped with two sensors in the front: an RGB camera for object tracking and an RGB Depth Camera for SLAM and Navigation. The designed robot is available as CAD in the `robotmodel.zip` file under the folder `cadmodel`.
 
 ### Important Dimensions of the Robot
 
@@ -248,7 +248,7 @@ This simulation environment can be used to:
 - Debug errors.
 - Fine-tune the differential drive used in the robot.
 
-### 6.2 Launching Simulation World with Plugins for Navigation
+### Launching Simulation World with Plugins for Navigation
 
 > **Note:** Please make sure to completely terminate other simulation worlds before launching a new one.
 
@@ -437,7 +437,7 @@ $ roslaunch darknet_ros darknet_ros.launch
 
 ## Cleaning Algorithm
 
-For Vaccumbot to perform its primary functionality efficiently, it needs to access every corner of a room and cover the entire area during the vacuuming process. This type of algorithm is already available and was installed if you followed the instructions in [Section 3.1](#). The installed package includes an algorithm designed to cover the maximum area in a room.
+For Vaccumbot to perform its primary functionality efficiently, it needs to access every corner of a room and cover the entire area during the vacuuming process. This type of algorithm is already available and was installed if you followed the instructions in [Section 2.1](#). The installed package includes an algorithm designed to cover the maximum area in a room.
 
 Path coverage is essential for applications like cleaning or mowing, where a robot must completely cover an environment. The ROS package executes a coverage path for a given area. The area to be covered is defined by a polygon, with points set from RViz using the Publish Point tool. When a successive point equals the first point, the polygon's area is divided into cells by an algorithm similar to the Boustrophedon Cellular Decomposition. Each cell can then be covered with simple back-and-forth motions.
 

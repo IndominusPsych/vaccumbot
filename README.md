@@ -170,9 +170,9 @@ To ensure the vacuumbot functions correctly, the following dependencies must be 
 
 Unzip the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file and copy the `vacuumbot` folder to the `src` directory, then run:
 
-   ```bash
-   $ catkin_make
-   ```
+```bash
+$ catkin_make
+```
 
 ### 5. Understanding Vacuumbot Model
 
@@ -228,3 +228,125 @@ To launch the simulation world included in the package, run the following comman
 ```bash
 $ roslaunch vaccumbot vaccumbot_urdf_v2.launch
 ```
+
+This launch file will initiate the following:
+
+a) **Gazebo World Initialization:** Sets up the simulation environment using the assigned world.
+
+b) **Robot Description Creation:** Generates the URDF file for the robot using Xacro.
+
+c) **Robot Spawning:** Spawns the vacuumbot in the Gazebo environment through the `spawn_urdf` node.
+
+d) **State Publishers:** Sets up the robot state publisher and joint state publisher nodes to:
+   - Publish the state of the robot’s joints for visualization.
+   - Publish joint state information for the joint state publisher.
+
+e) **Additional Sensor Launch:** Launches `~/vaccumbot/launch/depthimage_to_laserscan.launch` for converting depth images to laser scan data for gmapping and navigation. Important parameters include:
+   - **output_frame_id:** Specifies the reference frame for the output laser scan data (e.g., `tcam_link`).
+   - **scan_time:** The time interval between scans in seconds (e.g., `0.033`). A balance must be created between real-time processing and computational load.
+   - **image:** Remapped to the raw depth image topic (e.g., `/camera1/depth/image_raw`).
+   - **camera_info:** Remapped to the camera information topic (e.g., `/camera1/depth/camera_info`).
+   - **scan_topic:** Remapped to the output laser scan topic (e.g., `/camera1/depth/scan`).
+
+This simulation environment can be used to:
+- Modify the simulation world as needed.
+- Debug errors.
+- Fine-tune the differential drive used in the robot.
+
+### 6.2 Launching Simulation World with Plugins for Navigation
+
+> **Note:** Please make sure to completely terminate other simulation worlds before launching a new one.
+
+To launch the simulation world with all the preloaded plugins for autonomous navigation and SLAM, execute the following command in a new terminal:
+
+```bash
+$ roslaunch vaccumbot vaccumbot_navigation.launch
+```
+
+This launch file will initiate the following:
+
+a) **Vacuumbot Initialization:** Loads the robot’s URDF model in Gazebo.
+
+b) **Map Server:** Launches a map server to provide the environment map using the `map_server` node.
+
+c) **Localization with AMCL:** Starts the AMCL node for robot localization using `~/vaccumbot/launch/amcl.launch`.
+
+The Adaptive Monte Carlo Localization (AMCL) node is used for probabilistic localization of a two-dimensional robot. It tracks the robot’s pose relative to a pre-existing map using a particle filter. The AMCL node evaluates sensor data to determine the robot’s orientation and location. Key parameters for AMCL include:
+
+- **odom_frame_id:** ID for the odometry frame (e.g., `odom`).
+- **odom_model_type:** Type of the odometry model (e.g., `diff-corrected`).
+- **base_frame_id:** ID for the robot’s base frame (e.g., `base_link`).
+- **update_min_d:** Minimum distance for updates (e.g., `0.02`).
+- **update_min_a:** Minimum angle for updates (e.g., `0.02`).
+- **min_particles, max_particles:** Range for the number of particles used in the filter (e.g., `500, 300`). This can significantly affect computation time.
+- **laser_max_range, laser_max_beams:** Settings for the laser sensor (e.g., `3.5, 180`).
+- **odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4:** Parameters for odometry noises (e.g., `0.1`).
+- **scan:** Remapped to the output laser scan topic (e.g., `/camera1/depth/scan`).
+
+d) **Navigation with move_base:** Initializes the `move_base` node for navigation using `~/vaccumbot/launch/move_base.launch`.
+
+The `move_base` node manages autonomous navigation in both known and unknown environments. It integrates global and local planners to guide the robot from its current location to a desired position while avoiding obstacles. Key parameters include:
+
+- **cmd_vel_topic:** Topic name for command velocities (e.g., `/cmd_vel`).
+- **odom_topic:** Odometry data topic name (e.g., `odom`).
+- Additionally, this launch file loads all cost map and planner parameters from a YAML file. The global frame and robot base frame are set to `map` and `base_link`, respectively. The `~/vaccumbot/params/costmap_common_params.yaml` file should specify the footprint and observation source, which vary depending on the robot's description and the type of sensor used.
+
+e) **Initial Pose Setup:** Sets up an initial position for the robot localization using a custom node created with `~/vaccumbot/scripts/init_pose.py`.
+
+f) **Visualization with RViz:** Launches RViz for real-time visualization.
+
+### 6.3 Navigation of Vacuumbot using Teleoperation
+
+Open a new terminal and run the teleoperation node from the Remote PC:
+
+```bash
+$ rosrun vaccumbot keyboard_teleop.py
+```
+
+### 7. SLAM Simulation
+
+The SLAM (Simultaneous Localization and Mapping) technique enables the creation of a map by estimating the current location within an arbitrary space. SLAM is a key feature of the Vaccumbot. This guide explains how accurately Vaccumbot can map its environment using its compact and affordable platform.
+
+## Instructions
+
+1. **Launch the Simulation World**
+
+   Follow the instructions in [Section 4.1](#) to launch the simulation world. If you have already launched it, you can skip this step.
+
+2. **Launch the SLAM Node**
+
+   Open a new terminal on your Remote PC by pressing `Ctrl+Alt+T`, and then start the SLAM node. By default, the Gmapping method is used for SLAM.
+
+   ```bash
+   $ roslaunch vaccumbot gmapping.launch
+   ```
+Within the launch file, the `base_frame`, `odom_frame`, `map_frame`, and the type of gmapping are assigned as `base_link`, `odom`, `map`, and `slam_gmapping` respectively. It also loads the defined parameters required for gmapping from the file `~/vaccumbot/params/gmapping_params.yaml`.
+
+3. **Teleoperation and Exploration**
+
+Once the SLAM node is successfully up and running, Vaccumbot will explore the unknown areas of the map using teleoperation. It is important to avoid vigorous movements, such as quickly changing the linear and angular speeds. When building a map with Vaccumbot, it is good practice to scan every corner of the map. Start the teleoperation node by following the instructions in [Section 4.3](#).
+
+4. **Explore and Draw the Map**
+
+Start exploring and drawing the map to create a detailed representation of the environment.
+
+### 7.1 Saving the Map
+
+The map is generated based on the robot’s odometry, TF, and scan information. These map data are displayed in the RViz window as Vaccumbot travels. After creating a complete map of the desired area, save the map data to the local drive for later use.
+
+1. **Launch the Map Saver Node**
+
+   Launch the `map_saver` node in the `map_server` package to create map files. The map file is saved in the directory where the `map_saver` node is launched. Unless a specific file name is provided, the default file name `map` is used, creating `map.pgm` and `map.yaml`.
+
+   ```bash
+   $ rosrun map_server map_saver -f ~/map
+   ```
+   The `-f` option specifies a folder location and a file name where the map files will be saved.
+
+2. The map uses a two-dimensional Occupancy Grid Map (OGM), which is commonly used in ROS. The saved map will be displayed as follows:
+   - **White** areas represent collision-free spaces.
+   - **Black** areas indicate occupied and inaccessible regions.
+   - **Gray** areas denote unknown regions.
+
+   This map format is used for navigation purposes.
+

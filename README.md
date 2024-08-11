@@ -1,5 +1,7 @@
 # Room Vacuum Cleaning Robot Documentation
 
+This document is meant to act as a guide in setting up and running the vaccumbot package in ROS with all the implemented functionalities.
+
 ## Table of Contents
 
 1. [Ubuntu and ROS Installation](#ubuntu-and-ros-installation)
@@ -27,7 +29,7 @@
 
 ## Ubuntu and ROS Installation
 
-The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
+The project was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
 
 1. Download the appropriate Ubuntu 20.04 LTS Desktop image for your PC from the [Ubuntu website](https://releases.ubuntu.com/20.04/).
 
@@ -173,6 +175,10 @@ $ catkin_make
 
 The model of the vacuumbot used in this project was created using SOLIDWORKS and later converted into URDF using the `sw2urdf` plugin. The vacuumbot consists of left and right wheels with a caster wheel in the front for integrating a differential drive. It is equipped with two sensors in the front: an RGB camera for object tracking and an RGB Depth Camera for SLAM and Navigation. The designed robot is available as CAD in the `robotmodel.zip` file under the folder `cadmodel`.
 
+<div align="center">
+ <img src="images/vaccumbot.png" width="250" />
+</div>
+
 ### Important Dimensions of the Robot
 
 - **Robot Dimensions**:
@@ -223,6 +229,7 @@ To launch the simulation world included in the package, run the following comman
 ```bash
 $ roslaunch vaccumbot vaccumbot_urdf_v2.launch
 ```
+![alt text](images/simulationworld.png)
 
 This launch file will initiate the following:
 
@@ -257,6 +264,7 @@ To launch the simulation world with all the preloaded plugins for autonomous nav
 ```bash
 $ roslaunch vaccumbot vaccumbot_navigation.launch
 ```
+![alt text](images/naviagtion.png)
 
 This launch file will initiate the following:
 
@@ -297,6 +305,7 @@ Open a new terminal and run the teleoperation node from the Remote PC:
 ```bash
 $ rosrun vaccumbot keyboard_teleop.py
 ```
+![alt text](images/teleoperation.png)
 
 ## SLAM Simulation
 
@@ -320,6 +329,8 @@ Within the launch file, the `base_frame`, `odom_frame`, `map_frame`, and the typ
 3. **Teleoperation and Exploration**
 
 Once the SLAM node is successfully up and running, Vaccumbot will explore the unknown areas of the map using teleoperation. It is important to avoid vigorous movements, such as quickly changing the linear and angular speeds. When building a map with Vaccumbot, it is good practice to scan every corner of the map. Start the teleoperation node by following the instructions in [Section 4.3](#).
+
+![alt text](images/slammapping.png)
 
 4. **Explore and Draw the Map**
 
@@ -371,12 +382,16 @@ Initial Pose Estimation must be performed before running the Navigation as this 
 
 1. Click the **2D Nav Goal** button in the RViz menu.
 
+![alt text](images/rvizgoal.png)
+
 2. Click on the map to set the destination of the robot and drag the green arrow to indicate the direction where the robot will be facing.
 
    - The green arrow is a marker that specifies the robot's destination.
    - The root of the arrow represents the (x, y) coordinates of the destination, and the angle θ is determined by the orientation of the arrow.
    - As soon as (x, y, θ) are set, Vaccumbot will start moving to the destination immediately.
-  
+
+![alt text](images/navigationrviz.png)
+
 ### Autonomous Navigation using `goal_pose.py`
 
 The previous section described a UI-based method (RViz) for setting the navigation goal. An alternative method is to specify the goal using x, y coordinates with respect to the map. A Python script named `~/vaccumbot/scripts/goal_pose.py` is available for this purpose.
@@ -408,7 +423,15 @@ This command will add dynamic objects to the environment and initiate a node tha
 
 The objects are added to the world by modifying the file `~/vaccumbot/worlds/vaccumbot_house.world`. Two spherical objects with a radius of 0.08m, named `obstacle1` and `obstacle2`, are included. These objects become dynamic through the launch file, which initiates a Python script located at `~/vaccumbot/scripts/dynamic_obstacle.py`.
 
+<div align="center">
+ <img src="images/objtrackingblue.png" width="300" />
+</div>
+
 For object tracking, a modified Python script located at `~/vaccumbot/scripts/object_tracking.py` is initialized as the node `object_tracker_init`. This script uses OpenCV modules for processing the camera image.
+
+<div align="center">
+ <img src="images/objtrackingorange.png" width="300" />
+</div>
 
 ### Important Algorithms Used
 
@@ -435,6 +458,10 @@ After executing all necessary commands from [Section 6.1](#), open a new termina
 $ roslaunch darknet_ros darknet_ros.launch
 ```
 
+<div align="center">
+ <img src="images/objtrackingyolo.png" width="300" />
+</div>
+
 ## Cleaning Algorithm
 
 For Vaccumbot to perform its primary functionality efficiently, it needs to access every corner of a room and cover the entire area during the vacuuming process. This type of algorithm is already available and was installed if you followed the instructions in [Section 2.1](#). The installed package includes an algorithm designed to cover the maximum area in a room.
@@ -455,6 +482,10 @@ Path coverage is essential for applications like cleaning or mowing, where a rob
    $ roslaunch vaccumbot vaccumbot_cleaning.launch
    ```
 3. To start the cleaning process, you need to publish the corners of the room using RViz. For demonstration purposes, a set of points is predefined in the script located at `~/vaccumbot/scripts/cleaning_space.py`. This script will publish predefined corners, which will be used by the `path_coverage_ros` node. The script is already initialized within the launch file executed in the previous step as the `publish_corner` node.
+
+<div align="center">
+ <img src="images/robotcleaning.png" width="300" />
+</div>
 
 ## Conclusion
 

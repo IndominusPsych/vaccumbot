@@ -25,7 +25,7 @@
 9. [Conclusion](#conclusion)
 10. [References](#references)
 
-1. ## Ubuntu and ROS Installation
+## Ubuntu and ROS Installation
 
 The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. Follow these step-by-step instructions to properly install Ubuntu and ROS on your PC.
 
@@ -57,7 +57,7 @@ The case study was tested on Ubuntu 20.04 LTS Desktop and ROS1 Noetic Ninjemys. 
        ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
     ```
 
-## 2. Set Up a Catkin Workspace
+## Set Up a Catkin Workspace
 
 To set up the vacuumbot in ROS, we need to create a workspace first. Follow the instructions below to do so.
 
@@ -109,7 +109,7 @@ To set up the vacuumbot in ROS, we need to create a workspace first. Follow the 
     $ echo "source ~/casestudy_ws/devel/setup.bash" >> ~/.bashrc
     ```
 
-### 4.1 Installing Dependencies
+### Installing Dependencies
 
 To ensure the vacuumbot functions correctly, the following dependencies must be installed:
 
@@ -161,7 +161,7 @@ To ensure the vacuumbot functions correctly, the following dependencies must be 
     $ catkin_make -DCMAKE_BUILD_TYPE=Release
     ```
 
-### 4.2 Importing Vacuumbot Package into Your Workspace
+### Importing Vacuumbot Package into Your Workspace
 
 Unzip the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file and copy the `vacuumbot` folder to the `src` directory, then run:
 
@@ -169,7 +169,7 @@ Unzip the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file and 
 $ catkin_make
 ```
 
-### 5. Understanding Vacuumbot Model
+### Understanding Vacuumbot Model
 
 The model of the vacuumbot used in this project was created using SOLIDWORKS and later converted into URDF using the `sw2urdf` plugin. The vacuumbot consists of left and right wheels with a caster wheel in the front for integrating a differential drive. It is equipped with two sensors in the front: an RGB camera for object tracking and an RGB Depth Camera for SLAM and Navigation. The designed robot is available as CAD in the `Cooperative_Autonomous_Systems_Case_Study_Task4_230624.zip` file under the folder `cadmodel`. A model of the vacuumbot is shown in figures 4.1 and 4.2.
 
@@ -206,7 +206,7 @@ The URDF model contained inside the file `vacuumbot_core.xacro` specifies the ph
 - **Cameras**: `tcam_link` (top camera) and `fcam_link` (front camera) for sensing.
 - **Name Plate**: Displays the robot’s name or identifier (`name_link`).
 
-## 6. Gazebo Simulation
+## Gazebo Simulation
 
 > **Note:** Please run the Simulation on a Remote PC. Launching the Simulation for the first time on the Remote PC may take a while to set up the environment.
 
@@ -214,7 +214,7 @@ Vacuumbot supports a simulation development environment that can be programmed a
 
 If you need to perform SLAM or Navigation, Gazebo is a feasible solution as it supports sensors such as IMU, LDS, and cameras. This section introduces Gazebo, which is widely used among ROS developers. For Gazebo tutorials, refer to the [Gazebo Tutorials](http://gazebosim.org/tutorials).
 
-### 6.1 Launching Simulation World
+### Launching Simulation World
 
 > **Note:** Please make sure to completely terminate other simulation worlds before launching a new one.
 
@@ -290,7 +290,7 @@ e) **Initial Pose Setup:** Sets up an initial position for the robot localizatio
 
 f) **Visualization with RViz:** Launches RViz for real-time visualization.
 
-### 6.3 Navigation of Vacuumbot using Teleoperation
+### Navigation of Vacuumbot using Teleoperation
 
 Open a new terminal and run the teleoperation node from the Remote PC:
 
@@ -298,7 +298,7 @@ Open a new terminal and run the teleoperation node from the Remote PC:
 $ rosrun vaccumbot keyboard_teleop.py
 ```
 
-## 7. SLAM Simulation
+## SLAM Simulation
 
 The SLAM (Simultaneous Localization and Mapping) technique enables the creation of a map by estimating the current location within an arbitrary space. SLAM is a key feature of the Vaccumbot. This guide explains how accurately Vaccumbot can map its environment using its compact and affordable platform.
 
@@ -325,7 +325,7 @@ Once the SLAM node is successfully up and running, Vaccumbot will explore the un
 
 Start exploring and drawing the map to create a detailed representation of the environment.
 
-### 7.1 Saving the Map
+### Saving the Map
 
 The map is generated based on the robot’s odometry, TF, and scan information. These map data are displayed in the RViz window as Vaccumbot travels. After creating a complete map of the desired area, save the map data to the local drive for later use.
 
@@ -345,7 +345,7 @@ The map is generated based on the robot’s odometry, TF, and scan information. 
 
    This map format is used for navigation purposes.
 
-## 8. Navigation Simulation
+## Navigation Simulation
 
 **Note:** Terminate all applications with `Ctrl+C` that were launched in the previous sections.
 
@@ -355,7 +355,7 @@ The map created and saved in the previous section will be used for navigation he
 
    Open a new terminal and launch the simulation world by following the instructions given in [Section 4.1](#).
 
-### 8.1 Launch the Navigation Node
+### Launch the Navigation Node
 
 Open a new terminal on your Remote PC using `Ctrl+Alt+T` and run the Navigation node:
 
@@ -367,7 +367,7 @@ Initial Pose Estimation must be performed before running the Navigation as this 
 - One will be the Gazebo simulator.
 - The other will be RViz, displaying all the necessary outputs and ready to receive goals for navigation.
 
-### 8.2 Set Navigation Goal using RViz
+### Set Navigation Goal using RViz
 
 1. Click the **2D Nav Goal** button in the RViz menu.
 
@@ -377,7 +377,7 @@ Initial Pose Estimation must be performed before running the Navigation as this 
    - The root of the arrow represents the (x, y) coordinates of the destination, and the angle θ is determined by the orientation of the arrow.
    - As soon as (x, y, θ) are set, Vaccumbot will start moving to the destination immediately.
   
-### 8.3 Autonomous Navigation using `goal_pose.py`
+### Autonomous Navigation using `goal_pose.py`
 
 The previous section described a UI-based method (RViz) for setting the navigation goal. An alternative method is to specify the goal using x, y coordinates with respect to the map. A Python script named `~/vaccumbot/scripts/goal_pose.py` is available for this purpose.
 
@@ -392,11 +392,11 @@ Example:
 $ rosrun vaccumbot goal_pose.py -1.0 2.0
 ```
 
-## 9. Object Tracking
+## Object Tracking
 
 Tracking objects is a fundamental capability for robots, enabling them to interact with their environment, perform tasks, and navigate effectively. In this setup, an RGB camera is used for tracking dynamic objects.
 
-### 9.1 Launching Object Tracker
+### Launching Object Tracker
 
 Test objects are added to the Gazebo environment. To initialize the object tracker, follow the instructions from [Section 6.1](#), then open a new terminal and run the following command:
 
@@ -420,7 +420,7 @@ For object tracking, a modified Python script located at `~/vaccumbot/scripts/ob
 
 These combined techniques enable the robot to track objects in a video stream by identifying moving objects and verifying them based on color properties.
 
-### 9.2 Launching `darknet_ros` Node for Object Tracking using YOLO
+### Launching `darknet_ros` Node for Object Tracking using YOLO
 
 As an alternative object tracking method, YOLO (You Only Look Once) has been added. YOLO is a state-of-the-art, real-time object detection system. The ROS package for YOLO was installed previously by following the instructions in [Section 3.1](#).
 
@@ -435,13 +435,13 @@ After executing all necessary commands from [Section 6.1](#), open a new termina
 $ roslaunch darknet_ros darknet_ros.launch
 ```
 
-## 10. Cleaning Algorithm
+## Cleaning Algorithm
 
 For Vaccumbot to perform its primary functionality efficiently, it needs to access every corner of a room and cover the entire area during the vacuuming process. This type of algorithm is already available and was installed if you followed the instructions in [Section 3.1](#). The installed package includes an algorithm designed to cover the maximum area in a room.
 
 Path coverage is essential for applications like cleaning or mowing, where a robot must completely cover an environment. The ROS package executes a coverage path for a given area. The area to be covered is defined by a polygon, with points set from RViz using the Publish Point tool. When a successive point equals the first point, the polygon's area is divided into cells by an algorithm similar to the Boustrophedon Cellular Decomposition. Each cell can then be covered with simple back-and-forth motions.
 
-### 10.1 Launching `path_coverage_ros` Node
+### Launching `path_coverage_ros` Node
 
 1. **Start the Navigation Stack**
 
@@ -456,7 +456,7 @@ Path coverage is essential for applications like cleaning or mowing, where a rob
    ```
 3. To start the cleaning process, you need to publish the corners of the room using RViz. For demonstration purposes, a set of points is predefined in the script located at `~/vaccumbot/scripts/cleaning_space.py`. This script will publish predefined corners, which will be used by the `path_coverage_ros` node. The script is already initialized within the launch file executed in the previous step as the `publish_corner` node.
 
-## 11. Conclusion
+## Conclusion
 
 This project effectively demonstrates how to integrate various advanced technologies to build an autonomous vacuum robot with sophisticated object tracking and navigational capabilities.
 
@@ -482,7 +482,7 @@ This project effectively demonstrates how to integrate various advanced technolo
 
 In summary, this research illustrates how advanced navigation algorithms, computer vision, robotic operating systems, and mechanical design can be combined to create an intelligent and autonomous cleaning robot. The effective use of `move_base`, SLAM, AMCL, depth camera-based navigation, and real-time object tracking showcases a comprehensive approach to solving complex robotics challenges. This research not only demonstrates the capabilities of existing technologies but also paves the way for future developments in autonomous systems and smart home devices.
 
-## 12. References
+## References
 
 1. [TurtleBot3 Overview](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 2. [ROS Documentation](https://wiki.ros.org/Documentation)

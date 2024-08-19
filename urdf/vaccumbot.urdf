@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="vaccumbot">
+  <link name="base_link"/>
+  <joint name="chassis_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis_link"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+  </joint>
+  <link
+    name="chassis_link">
+    <inertial>
+      <origin
+        xyz="0.0126802640837411 6.40949875362062E-08 0.058194051584857"
+        rpy="0 0 0" />
+      <mass
+        value="5.4959" />
+      <inertia
+        ixx="0.0371356810930404"
+        ixy="9.9949761040764E-08"
+        ixz="-0.00286739459112981"
+        iyy="0.0355593300545489"
+        iyz="-5.03783025884039E-09"
+        izz="0.065646705814224" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="orange">
+        <color
+          rgba="1 0.3 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="rw_link">
+    <inertial>
+      <origin
+        xyz="3.46944695195361E-18 3.46944695195361E-18 -2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.0491025370241815" />
+      <inertia
+        ixx="1.26103906089121E-05"
+        ixy="1.04983184786151E-40"
+        ixz="2.38228016415271E-22"
+        iyy="1.26103906089121E-05"
+        iyz="-2.29393049350819E-38"
+        izz="2.2604204311792E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/rw_link.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0.2 0.2 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/rw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rw"
+    type="continuous">
+    <origin
+      xyz="0 -0.125 0.03"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rw_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="lw_link">
+    <inertial>
+      <origin
+        xyz="-3.46944695195361E-18 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.0491025370241815" />
+      <inertia
+        ixx="1.26103906089121E-05"
+        ixy="-6.69042449460786E-38"
+        ixz="-1.19114008207636E-22"
+        iyy="1.26103906089121E-05"
+        iyz="-4.01780295691213E-38"
+        izz="2.26042043117919E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/lw_link.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0.2 0.2 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/lw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lw"
+    type="continuous">
+    <origin
+      xyz="0 0.125 0.03"
+      rpy="1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="lw_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="strasm_link">
+    <inertial>
+      <origin
+        xyz="0 -6.0629E-06 -0.019457"
+        rpy="0 0 0" />
+      <mass
+        value="0.0046361" />
+      <inertia
+        ixx="7.54894203218429E-07"
+        ixy="-2.44258930305482E-23"
+        ixz="-2.20603142303679E-23"
+        iyy="7.18558824886549E-07"
+        iyz="4.14054745693393E-10"
+        izz="2.51203869548262E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/strasm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/strasm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="strasm"
+    type="fixed">
+    <origin
+      xyz="0.115 0 0.0425"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="strasm_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="sw_link">
+    <inertial>
+      <origin
+        xyz="2.7756E-17 -1.7347E-18 0.00048162"
+        rpy="0 0 0" />
+      <mass
+        value="0.0070929" />
+      <inertia
+        ixx="5.65921693036348E-07"
+        ixy="1.69347815846754E-39"
+        ixz="2.05269774647707E-25"
+        iyy="5.65921693036347E-07"
+        iyz="1.79366203433577E-39"
+        izz="1.06158941239449E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/sw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/sw_link.STL" />
+      </geometry>
+      <surface>
+        <friction>
+            <ode>
+                <mu>0.0001</mu>
+                <mu2>0.0001</mu2>
+            </ode>
+        </friction>
+      </surface>
+    </collision>
+  </link>
+  <joint
+    name="sw"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.025"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="strasm_link" />
+    <child
+      link="sw_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="fvc_link">
+    <inertial>
+      <origin
+        xyz="-5.3363E-09 1.3197E-09 3.4207E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.13746" />
+      <inertia
+        ixx="0.00035908"
+        ixy="6.9136E-12"
+        ixz="-8.7755E-12"
+        iyy="0.00036184"
+        iyz="1.1468E-12"
+        izz="1.9297E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/fvc_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/fvc_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fvc"
+    type="continuous">
+    <origin
+      xyz="0.0195 0 0.0205"
+      rpy="1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="fvc_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="rvc_link">
+    <inertial>
+      <origin
+        xyz="-5.3363E-09 1.3197E-09 3.4207E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.13746" />
+      <inertia
+        ixx="0.00035908"
+        ixy="6.9136E-12"
+        ixz="-8.7755E-12"
+        iyy="0.00036184"
+        iyz="1.1468E-12"
+        izz="1.9297E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/rvc_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/rvc_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rvc"
+    type="continuous">
+    <origin
+      xyz="0.0605 0 0.0205"
+      rpy="1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="rvc_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="flwp_link">
+    <inertial>
+      <origin
+        xyz="0.0011186 1.8041E-16 0.016349"
+        rpy="0 0 0" />
+      <mass
+        value="0.070162" />
+      <inertia
+        ixx="0.000229902876916624"
+        ixy="2.06001046897999E-19"
+        ixz="-1.18603162435497E-08"
+        iyy="7.04015716052353E-05"
+        iyz="-2.79956816464161E-21"
+        izz="0.000299969147301236" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/flwp_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/flwp_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flwp"
+    type="prismatic">
+    <origin
+      xyz="-0.075 0 0.028"
+      rpy="3.1416 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="flwp_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0.009"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="tcam_link">
+    <inertial>
+      <origin
+        xyz="-0.000749999999999973 -5.89805981832114E-17 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00198" />
+      <inertia
+        ixx="6.7386E-07"
+        ixy="-5.77301437445242E-23"
+        ixz="-1.98523347012727E-23"
+        iyy="8.023125E-08"
+        iyz="-4.40511694302034E-22"
+        izz="5.9437125E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/tcam_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/tcam_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tcam"
+    type="fixed">
+    <origin
+      xyz="0.11856 0 0.12179"
+      rpy="0 -0.17453 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="tcam_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="fcam_link">
+    <inertial>
+      <origin
+        xyz="-0.001 -3.46944695195361E-18 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00405" />
+      <inertia
+        ixx="1.366875E-06"
+        ixy="-7.81562594387462E-25"
+        ixz="-3.26310443204654E-24"
+        iyy="6.847875E-07"
+        iyz="2.3246849523907E-39"
+        izz="6.847875E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/fcam_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/fcam_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fcam"
+    type="fixed">
+    <origin
+      xyz="0.162 0 0.06"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="fcam_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="name_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/name_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://vaccumbot/meshes/name_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="name"
+    type="fixed">
+    <origin
+      xyz="-0.004944 -0.0048418 0.098545"
+      rpy="3.1416 -1.3258 -3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="name_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <transmission name="flwp_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="flwp">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="flwp_link_trans">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="rvc_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rvc">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rvc_link_trans">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="fvc_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="fvc">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="fvc_link_trans">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="sw_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="sw">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="sw_link_trans">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="rw_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rw">
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rw_link_trans">
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="lw_link_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="lw">
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="lw_link_trans">
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <gazebo>
+    <plugin name="control"
+  filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <gazebo reference="flwp_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="rvc_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="fvc_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="strasm_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="sw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="lw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="rw_link">
+    <selfCollide>true</selfCollide>
+  </gazebo>
+</robot>

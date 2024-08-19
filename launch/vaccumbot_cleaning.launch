@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- PATH COVERAGE DRIVE LAUNCH -->
+  <include file="$(find path_coverage)/launch/path_coverage.launch"/>
+
+  <!-- PUBLISH CORNER OF THE ROOM FOR CLEANING -->
+  <node name="publish_corner" pkg="vaccumbot" type="cleaning_space.py"/>
+
+</launch>

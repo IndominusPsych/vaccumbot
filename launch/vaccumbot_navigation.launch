@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- LAUNCH VACCUMBOT IN GAZEBO -->  
+  <include file="$(find vaccumbot)/launch/vaccumbot_urdf_v2.launch"/>
+
+  <!-- LAUNCH MAP SERVER -->
+  <arg name="map_file" default="$(find vaccumbot)/maps/house.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- LAUNCH AMCL NODE -->  
+  <include file="$(find vaccumbot)/launch/amcl.launch"/>
+
+  <!-- LAUNCH AMCL NODE -->  
+  <include file="$(find vaccumbot)/launch/move_base.launch"/>
+
+  <!-- PLACE MAP FRAME AT BASE_LINK FRAME -->
+  <!-- <node name="map_tf_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 map base_link 100" /> -->
+  <!-- <node name="map_tf_odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" /> -->
+
+   <!-- INITIAL POSE FOR LOCALISATION -->
+  <node name="initialise_pos" pkg="vaccumbot" type="init_pose.py"/>
+
+  <!-- LAUNCH RVIZ FOR VISUALIZATION-->
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+    args="-d $(find vaccumbot)/rviz/navigation.rviz"/>
+
+</launch>

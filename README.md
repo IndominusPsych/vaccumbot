@@ -1,4 +1,4 @@
-# Room Vacuum Cleaning Robot Documentation
+# Room Cleaning Vacuum Robot Documentation
 
 This document is meant to act as a guide in setting up and running the vaccumbot package in ROS with all the implemented functionalities.
 
